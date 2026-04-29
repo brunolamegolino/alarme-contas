@@ -1,5 +1,7 @@
 # Plano: módulo nativo de alarme (despertador real)
 
+usar a lib pronta tipo notifee ou react-native-alarm-notification
+
 Substitui `expo-notifications`/`expo-av` por código nativo Android pra ter comportamento de despertador de verdade: toca no horário com app fechado, acende a tela por cima do lock screen, som contínuo até resolver as duas contas.
 
 > **Status**: `plugins/with-alarm.js` já está criado. Os Kotlin abaixo precisam ser salvos em `plugins/native/` antes de rodar `npx expo prebuild --clean`.
