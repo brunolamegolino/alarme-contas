@@ -1,0 +1,55 @@
+{
+  "expo": {
+    "name": "Alarme Contas",
+    "slug": "alarme-contas",
+    "scheme": "alarme-contas",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/adaptive-icon-3.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "backgroundColor": "#0b0b0f",
+      "resizeMode": "contain",
+      "image": "./assets/logo.png"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "versionCode": 1,
+      "package": "com.brunolino.alarmecontas",
+      "adaptiveIcon": {
+        "backgroundColor": "#0b0b0f",
+        "foregroundImage": "./assets/adaptive-icon-3.png"
+      },
+      "permissions": [
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.SCHEDULE_EXACT_ALARM",
+        "android.permission.USE_EXACT_ALARM",
+        "android.permission.USE_FULL_SCREEN_INTENT",
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.VIBRATE",
+        "android.permission.WAKE_LOCK"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-notifications",
+        {
+          "sounds": ["./assets/notify.mp3"]
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35
+          }
+        }
+      ]
+    ],
+    "newArchEnabled": true
+  }
+}
