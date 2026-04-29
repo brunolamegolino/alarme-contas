@@ -10,21 +10,67 @@ A pasta `android/` antiga (do projeto anterior) está como root. Apague antes de
 sudo rm -rf android ios
 ```
 
-Depois:
-
-```bash
-docker compose up -d alarme-app          # instala node_modules dentro do container
-docker compose exec alarme-app npx expo prebuild --clean --platform android
-docker compose exec alarme-app npx expo run:android
-```
-
-Ou local (sem Docker), com Node 18+ e Android SDK:
+Depois (Node 18+ e Android SDK no host):
 
 ```bash
 npm install
 npx expo prebuild --clean --platform android
+```
+
+A partir daí, escolhe o caminho:
+
+### Desenvolvimento (rápido, com hot reload)
+
+```bash
 npx expo run:android
 ```
+
+Builda debug, instala no celular conectado e sobe o Metro. Iteração rápida — segundo build leva ~30s–1min.
+
+> Precisa de celular com **depuração USB** ativada e cabo conectado, ou adb wireless pareado.
+
+### APK release (standalone, roda sem PC)
+
+```bash
+cd android
+./gradlew assembleRelease
+```
+
+APK fica em `android/app/build/outputs/apk/release/app-release.apk`.
+
+### APK debug
+
+```bash
+cd android
+./gradlew assembleDebug
+```
+
+APK em `android/app/build/outputs/apk/debug/app-debug.apk`. Mais rápido, mas precisa do Metro rodando pra carregar o JS.
+
+### Atalho: builda release + instala no celular
+
+```bash
+npx expo run:android --variant release
+```
+
+### Tempos típicos
+
+| | 1º build | builds seguintes |
+|---|---|---|
+| `expo run:android` (debug) | ~5–10 min | ~30s–1min |
+| `assembleRelease` | ~10–15 min | ~2–4 min |
+
+Gradle cacheia tudo em `~/.gradle/caches` — o primeiro build baixa SDK/deps, os seguintes só recompilam o que mudou.
+
+### Transferindo o APK pro celular
+
+```bash
+adb install android/app/build/outputs/apk/release/app-release.apk
+# ou copia pro /sdcard/Download e instala manualmente:
+adb push android/app/build/outputs/apk/release/app-release.apk /sdcard/Download/
+```
+
+Também serve mandar pelo Telegram/Drive e abrir no celular (precisa autorizar "fontes desconhecidas").
 
 ## Estrutura
 
